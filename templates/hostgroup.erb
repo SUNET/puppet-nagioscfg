@@ -1,7 +1,7 @@
+
+# <%= @name %>
 define hostgroup {
-	hostgroup_name <%= @name %>
-	alias <%= @hostgroup_alias %>
-<% if @hostgroup_members %>
- 	members <%= @hostgroup_members %>
-<% end %>
+  hostgroup_name <%= @name %>
+  alias <%= @hostgroup_alias %>
+<% if @hostgroup_members %>  members <%= @hostgroup_members %><% end %>
 }
