@@ -23,7 +23,7 @@ define nagioscfg::service($ensure = 'present',
     default => join($host_name, ',')
   }
   $contact_groups_list = $contact_groups ? {
-    undef   => $name,
+    undef   => undef,
     default => join($contact_groups, ',')
   }
   concat::fragment {"${nagioscfg::config}_service_${name}":
