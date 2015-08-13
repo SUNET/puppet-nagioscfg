@@ -3,7 +3,7 @@ import concat
 
 define nagioscfg::host() {
   $host_ip_list = dnsLookup($name)
-  notify("Resolving ${name} to ${host_ip_list}")
+  notify { "Resolving ${name} to ${host_ip_list}": }
   $host_ips = $host_ip_list ? {
     undef   => undef,
     []      => undef,
