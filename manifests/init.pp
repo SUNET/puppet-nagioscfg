@@ -28,6 +28,8 @@ class nagioscfg($hostgroups={}, $cfgdir='/etc/nagios3/conf.d', $host_template='g
     }
   }
   each($hostgroups) |$hgn, $members| {
-     nagioscfg::hostgroup {$hgn: members => $members}
+     if $hgn != 'all' {
+        nagioscfg::hostgroup {$hgn: members => $members}
+     }
   }
 }
