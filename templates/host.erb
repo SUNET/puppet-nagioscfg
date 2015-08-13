@@ -1,7 +1,7 @@
 
 # <%= @name %>
 define host {
-  use <%= @{nagioscfg::host_template} %>
+  use <%= scope.lookupvar("nagioscfg::host_template") %>
   host_name <%= @name %>
   alias <%= @name %>
 <% if @host_ips %>  address <%= @host_ips %><% end %>
