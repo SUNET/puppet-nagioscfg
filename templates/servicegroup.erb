@@ -1,0 +1,7 @@
+define servicegroup {
+	servicegroup_name <%= @name %>
+	alias <%= @servicegroup_alias %>
+<% if @servicegroup_members %>
+ 	members <%= @servicegroup_members %>
+<% end %>
+}

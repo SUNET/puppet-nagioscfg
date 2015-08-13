@@ -1,0 +1,14 @@
+{
+  "name": "puppet-nagioscfg",
+  "version": "1.0.0",
+  "author": "Leif Joahansson",
+  "summary": "A puppet module for nagioscfg",
+  "license": "BSD",
+  "source": "git://github.com/samlbits/puppet-nagioscfg",
+  "project_page": "https://github.com/samlbits/puppet-nagioscfg",
+  "issues_url": "https://github.com/samlbits/puppet-nagioscfg/issues",
+  "description": "Installs and manages nagios server host hostgroup and service configuration",
+  "dependencies": [
+  
+  ]
+}
