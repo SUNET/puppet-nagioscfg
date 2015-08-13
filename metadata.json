@@ -9,6 +9,7 @@
   "issues_url": "https://github.com/samlbits/puppet-nagioscfg/issues",
   "description": "Installs and manages nagios server host hostgroup and service configuration",
   "dependencies": [
-  
+    { "name": "puppetlabs/stdlib" },
+    { "name": "puppetlabs/concat" }
   ]
 }
