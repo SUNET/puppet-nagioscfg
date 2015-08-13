@@ -8,6 +8,7 @@ module Puppet::Parser::Functions
     newfunction(:dnsLookup, :type => :rvalue) do |args|
         result = []
         result = Resolv.new.getaddresses(args[0])
+        debug("resolving #{args[0]} to #{result}")
         return result
     end
 end
