@@ -8,8 +8,8 @@ define nagioscfg::host() {
     []      => undef,
     default => join($host_ip_list, ',')
   }
-  concat::fragment {"nagioscfg_host_${name}":
-    target  => "${nagioscfg::cfgdir}/nagioscfg_hosts.cfg",
+  concat::fragment {"${nagioscfg::config}_host_${name}":
+    target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_hosts.cfg",
     content => template('nagioscfg/host.erb'),
     order   => 30,
     notify  => Service['nagios3']

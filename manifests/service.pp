@@ -25,8 +25,8 @@ define nagioscfg::service($ensure = 'present',
     undef   => $name,
     default => join($contact_groups, ',')
   }
-  concat::fragment {"nagioscfg_service_${name}":
-    target  => "${nagioscfg::cfgdir}/nagioscfg_services.cfg",
+  concat::fragment {"${nagioscfg::config}_service_${name}":
+    target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_services.cfg",
     content => template('nagioscfg/service.erb'),
     order   => 30,
     notify  => Service['nagios3']

@@ -14,8 +14,8 @@ define nagioscfg::hostgroup($alias = undef, $ensure = 'present', $members = unde
     undef   => $def_members,
     default => join($members, ',')
   }
-  concat::fragment {"nagioscfg_hostgroup_${name}":
-    target  => "${nagioscfg::cfgdir}/nagioscfg_hostgroups.cfg",
+  concat::fragment {"${nagioscfg::config}_hostgroup_${name}":
+    target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_hostgroups.cfg",
     content => template('nagioscfg/hostgroup.erb'),
     order   => 30,
     notify  => Service['nagios3']
