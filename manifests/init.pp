@@ -5,4 +5,7 @@ class nagioscfg($hostgroups={}, $cfgdir='/etc/nagios3', $host_template='host', $
       nagioscfg::host {$hostname: }
     }
   }
+  each($hostgroups) |$hgn, $members| {
+     nagioscfg::hostgroup {$hgn: members => $members}
+  }
 }
