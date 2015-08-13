@@ -1,7 +1,8 @@
 
 # <%= @name %>
 define service {
-  check_command <%= @check_command_str %>
+  name <%= @name %>
+<% if @check_command %>  check_command <%= @check_command %><% end %>
 <% if @host_list %>  host_name <%= @host_list %><% end %>
 <% if @hostgroup_list %>  hostgroup_name <%= @hostgroup_list %><% end %>
 <% if @description %>  service_description <%= @description %><% end %>

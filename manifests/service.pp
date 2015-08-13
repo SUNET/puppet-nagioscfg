@@ -22,10 +22,6 @@ define nagioscfg::service($ensure = 'present',
     undef   => undef,
     default => join($host_name, ',')
   }
-  $check_command_str = $check_command ? {
-    undef   => $name,
-    default => $check_command
-  }
   $contact_groups_list = $contact_groups ? {
     undef   => $name,
     default => join($contact_groups, ',')
