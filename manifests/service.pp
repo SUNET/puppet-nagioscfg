@@ -8,7 +8,12 @@ define nagioscfg::service($ensure = 'present',
                           $check_command = undef,
                           $use = undef,
                           $contact_groups = undef,
-                          $notes = undef) {
+                          $notes = undef,
+                          $register = "1",
+                          $max_check_attempts = "4",
+                          $normal_check_interval = "5",
+                          $retry_check_interval = "1"
+) {
   $hostgroup_list = $hostgroup_name ? {
     undef   => undef,
     default => join($hostgroup_name, ',')

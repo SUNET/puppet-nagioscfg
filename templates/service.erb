@@ -8,4 +8,8 @@ define service {
 <% if @use %>  use <%= @use %><% end %>
 <% if @contact_groups_list %>  contact_groups <%= @contact_groups_list %><% end %>
 <% if @notes %>  notes <%= @notes %><% end %>
+<% if @max_check_attempts %>  max_check_attempts <%= @max_check_attempts %><% end %>
+<% if @normal_check_interval %>  normal_check_interval <%= @normal_check_interval %><% end %>
+<% if @retry_check_interval %>  retry_check_interval <%= @retry_check_interval %><% end %>
+  register <%= @register %>
 }
