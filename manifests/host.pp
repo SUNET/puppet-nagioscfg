@@ -12,7 +12,7 @@ define nagioscfg::host() {
   concat::fragment {"${nagioscfg::config}_host_${name}":
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_hosts.cfg",
     content => template('nagioscfg/host.erb'),
-    order   => 30,
+    order   => '30',
     notify  => Service['nagios3']
   }
 }
