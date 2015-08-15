@@ -13,7 +13,7 @@ define nagioscfg::servicegroup($alias = undef, $ensure = 'present', $members = u
   concat::fragment {"${nagioscfg::config}_servicegroup_${name}":
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_servicegroups.cfg",
     content => template('nagioscfg/servicegroup.erb'),
-    order   => 30,
+    order   => '30',
     notify  => Service['nagios3']
   }
 }
