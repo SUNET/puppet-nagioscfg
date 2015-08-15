@@ -1,6 +1,6 @@
 define nagioscfg::checks::zone ($hostgroup_name = []) {
   nagioscfg::command {"check_zone_${name}":
-    command_line => "/usr/lib/nagios/plugins/check_dig -H '\$HOSTADDRESS$' -l ${name} -T '\$ARG1\$'"
+    command_line => "/usr/lib/nagios/plugins/check_dig -H '\$HOSTNAME$' -l ${name} -T '\$ARG1\$'"
   }
   nagioscfg::service {"${name}_SOA":
     check_command  => "check_zone_${name}!${name}!SOA",
