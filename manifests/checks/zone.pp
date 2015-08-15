@@ -1,4 +1,4 @@
-define nagioscfg::check::zone (hostgroup_name = []) {
+define nagioscfg::checks::zone (hostgroup_name = []) {
   nagioscfg::command {"check_zone_${name}":
     command_line => "/usr/lib/nagios/plugins/check_dig -H '$HOSTADDRESS$' -l ${name} -T '$ARG1$'"
   }
