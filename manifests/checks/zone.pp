@@ -1,5 +1,5 @@
 
-include nagioscfg::checks
+class { 'nagioscfg::checks': }
 define nagioscfg::checks::zone ($hostgroup_name = []) {
   nagioscfg::service {"${name}_SOA_4":
     check_command  => "check_zone_4!${name}!SOA",
