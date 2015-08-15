@@ -1,6 +1,4 @@
 
-include nagioscfg::checks
-
 class nagioscfg::checks {
   nagioscfg::command {"check_zone_4":
     command_line => "/usr/lib/nagios/plugins/check_dig -4 -H '\$HOSTNAME\$' -l '\$ARG1\$' -T '\$ARG2\$'"
