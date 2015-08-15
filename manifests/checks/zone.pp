@@ -1,14 +1,27 @@
 define nagioscfg::checks::zone ($hostgroup_name = []) {
-  nagioscfg::command {"check_zone_${name}":
-    command_line => "/usr/lib/nagios/plugins/check_dig -H '\$HOSTNAME$' -l ${name} -T '\$ARG1\$'"
+  nagioscfg::command {"check_zone_${name}_4":
+    command_line => "/usr/lib/nagios/plugins/check_dig -4 -H '\$HOSTNAME$' -l ${name} -T '\$ARG1\$'"
+  }
+  nagioscfg::command {"check_zone_${name}_6":
+    command_line => "/usr/lib/nagios/plugins/check_dig -6 -H '\$HOSTNAME$' -l ${name} -T '\$ARG1\$'"
   }
   nagioscfg::service {"${name}_SOA":
-    check_command  => "check_zone_${name}!${name}!SOA",
+    check_command  => "check_zone_${name}_4!${name}!SOA",
+    hostgroup_name => $hostgroup_name,
+    description    => "${name} SOA"
+  }
+  nagioscfg::service {"${name}_SOA":
+    check_command  => "check_zone_${name}_6!${name}!SOA",
     hostgroup_name => $hostgroup_name,
     description    => "${name} SOA"
   }
   nagioscfg::service {"${name}_NS":
-    check_command  => "check_zone_${name}!${name}!NS",
+    check_command  => "check_zone_${name}_4!${name}!NS",
+    hostgroup_name => $hostgroup_name,
+    description    => "${name} NS"
+  }
+  nagioscfg::service {"${name}_NS":
+    check_command  => "check_zone_${name}_6!${name}!NS",
     hostgroup_name => $hostgroup_name,
     description    => "${name} NS"
   }
