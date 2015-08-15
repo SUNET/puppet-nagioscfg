@@ -21,6 +21,11 @@ class nagioscfg($hostgroups={}, $cfgdir='/etc/nagios3/conf.d', $host_template='g
     group => root,
     mode  => '0644'
   }
+  concat {"${cfgdir}/${config}_commands.cfg":
+    owner => root,
+    group => root,
+    mode  => '0644'
+  }
   if has_key($hostgroups,'all') {
     each($hostgroups['all']) |$hostname| {
       notify {"generating ${hostname}": }
