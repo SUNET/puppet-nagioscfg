@@ -8,6 +8,6 @@ define nagioscfg::checks::uri_content($match = undef) {
   nagioscfg::service {"check_${name}_${f}":
     host_name      => [$name],
     check_command  => "check_http_content!${match}",
-    description    => "http://${name}/ contains '${match}'"
+    description    => "http://${name}/ contains ${match}"
   }
 }
