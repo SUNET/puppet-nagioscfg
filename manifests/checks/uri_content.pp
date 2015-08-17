@@ -1,4 +1,4 @@
-import stdlib
+include stdlib
 
 define nagioscfg::checks::uri_content($match = undef) {
   ensure_resource('nagioscfg::command', 'check_http_content', {
