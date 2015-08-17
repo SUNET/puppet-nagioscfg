@@ -1,4 +1,4 @@
-define nagioscfg::checks::check_uri_content($match = undef) {
+define nagioscfg::checks::uri_content($match = undef) {
   ensure_resource('nagioscfg::command', 'check_http_content', {
       command_line   => '/usr/lib/nagios/plugins/check_http -H \'$HOSTNAME\$\' -e \'$ARG1$\''
   })
