@@ -1,10 +1,10 @@
 include stdlib
 include concat
 
-define nagioscfg::servicegroup($alias = undef, $ensure = 'present', $members = undef) {
-  $servicegroup_alias = $alias ? {
+define nagioscfg::servicegroup($sgalias = undef, $ensure = 'present', $members = undef) {
+  $servicegroup_alias = $sgalias ? {
     undef   => $name,
-    default => $alias
+    default => $sgalias
   }
   $servicegroup_members = $members ? {
     undef   => undef,

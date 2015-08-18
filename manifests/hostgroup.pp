@@ -1,10 +1,10 @@
 include stdlib
 include concat
 
-define nagioscfg::hostgroup($alias = undef, $ensure = 'present', $members = undef) {
-  $hostgroup_alias = $alias ? {
+define nagioscfg::hostgroup($hgalias = undef, $ensure = 'present', $members = undef) {
+  $hostgroup_alias = $hgalias ? {
     undef   => $name,
-    default => $alias
+    default => $hgalias
   }
   $def_members = has_key($nagioscfg::hostgroups, $name) ? {
     true  => $nagioscfg::hostgroups[$name],
