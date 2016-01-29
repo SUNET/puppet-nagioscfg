@@ -9,9 +9,9 @@ class nagioscfg($hostgroups={}, $cfgdir='/etc/nagios3/conf.d', $host_template='g
      ensure  => file,
      content => template('nagioscfg/check_nrpe.cfg.erb')
   }
-  file { "/etc/nagios-plugins/config/check_ssh_4.cfg":
+  file { "/etc/nagios-plugins/config/check_ssh_4_hostname.cfg":
      ensure  => file,
-     content => template('nagioscfg/check_ssh_4.cfg.erb')
+     content => template('nagioscfg/check_ssh_4_hostname.cfg.erb')
   }
   concat {"${cfgdir}/${config}_hostgroups.cfg":
     owner => root,
