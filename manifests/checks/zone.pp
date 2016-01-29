@@ -1,5 +1,5 @@
 
-import stdlib
+include stdlib
 define nagioscfg::checks::zone ($hostgroup_name = []) {
 
   ensure_resource('nagioscfg::command','check_zone_4', {

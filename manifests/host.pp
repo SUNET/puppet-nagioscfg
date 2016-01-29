@@ -1,5 +1,5 @@
-import stdlib
-import concat
+include stdlib
+include concat
 
 define nagioscfg::host() {
   $host_ip_list = dnsLookup($name)

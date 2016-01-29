@@ -1,5 +1,5 @@
-import stdlib
-import concat
+include stdlib
+include concat
 
 define nagioscfg::service($ensure = 'present',
                           $hostgroup_name = undef,

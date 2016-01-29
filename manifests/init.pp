@@ -1,10 +1,14 @@
-import stdlib
+include stdlib
 
 class nagioscfg($hostgroups={}, $cfgdir='/etc/nagios3/conf.d', $host_template='generic-host', $config = "nagioscfg", $manage_package = true) {
   if $manage_package { 
     ensure_resource('package','nagios3', { ensure => present })
   }
   ensure_resource('service','nagios3', { ensure => running })
+  file { "/etc/nagios-plugins/config/check_nrpe.cfg": 
+     ensure  => file,
+     content => template('nagioscfg/check_nrpe.cfg.erb')
+  }
   concat {"${cfgdir}/${config}_hostgroups.cfg":
     owner => root,
     group => root,
