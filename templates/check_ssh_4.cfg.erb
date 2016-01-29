@@ -1,0 +1,21 @@
+####
+# use these checks, if you want to test IPv4 connectivity on IPv6 enabled systems
+####
+
+# 'check_ssh_4' command definition
+define command{
+        command_name    check_ssh_4
+        command_line    /usr/lib/nagios/plugins/check_ssh -4 '$HOSTADDRESS$'
+}
+
+define command{
+        command_name    check_ssh_4_hostname
+        command_line    /usr/lib/nagios/plugins/check_ssh -4 '$HOSTNAME$'
+}
+
+# 'check_ssh_port_4' command definition
+define command{
+        command_name    check_ssh_port_4
+        command_line    /usr/lib/nagios/plugins/check_ssh -4 -p '$ARG1$' '$HOSTADDRESS$'
+}
+
