@@ -3,8 +3,8 @@ include concat
 
 define nagioscfg::contact($ensure = 'present',
                           $contact_groups = ['admins'],
-                          $host_notifiation_enabled = '1',
-                          $service_notification_enabled = '1',
+                          $host_notifiations_enabled = '1',
+                          $service_notifications_enabled = '1',
                           $host_notification_period = "24x7",
                           $service_notification_period = "24x7",
                           $host_notification_options = 'd,u,r',
