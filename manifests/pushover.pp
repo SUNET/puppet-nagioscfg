@@ -7,6 +7,9 @@ class nagioscfg::pushover {
      content => template('nagioscfg/notify_by_pushover.erb')
    }
    nagioscfg::command { 'notify-host-by-pushover': 
-     command_line => "/usr/lib/nagios/plugins/notify_by_pushover -u '\$CONTACTADDRESS1\$' -a '\$CONTACTADDRESS2\$' -t '\$NOTIFICATIONTYPE\$ Host Alert: \$HOSTNAME\$ is \$HOSTSTATE\$' -m 'Notification Type: \$NOTIFICATIONTYPE\$\\nHost: \$HOSTNAME\$\\nState: \$HOSTSTATE\$\\nAddress: \$HOSTADDRESS\$\\nInfo: \$HOSTOUTPUT\$\\n\\nDate/Time: \$LONGDATETIME\$\\n'"
+     command_line => "/usr/lib/nagios/plugins/notify_by_pushover -u '\$CONTACTADDRESS1\$' -a '\$CONTACTADDRESS2\$' -t '\$NOTIFICATIONTYPE\$ Host Alert: \$HOSTNAME\$ is \$HOSTSTATE\$' -m 'Notification Type: \$NOTIFICATIONTYPE\$\\nHost: \$HOSTNAME\$\\nState: \$HOSTSTATE\$\\nAddress: \$HOSTADDRESS\$\\nInfo: \$HOSTOUTPUT\$\\n\\nDate/Time: \$LONGDATETIME\$'"
+   }
+   nagioscfg::command { 'notify-service-by-pushover':
+     command_line => "/usr/lib/nagios/plugins/notify_by_pushover -u '\$CONTACTADDRESS1\$' -a '\$CONTACTADDRESS2\$' -t '\$NOTIFICATIONTYPE\$ Service Alert: \$HOSTALIAS\$/\$SERVICEDESC\$ is \$SERVICESTATE\$' -m 'Notification Type: \$NOTIFICATIONTYPE\$\\n\\nService: \$SERVICEDESC\$\\nHost: \$HOSTALIAS\$\\nAddress: \$HOSTADDRESS\$\\nState: \$SERVICESTATE\$\\n\\nDate/Time: \$LONGDATETIME\$\\n\\nAdditional Info:\\n\\n\$SERVICEOUTPUT\$'"
    }
 }
