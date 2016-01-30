@@ -6,7 +6,7 @@ class nagioscfg($hostgroups={}, $cfgdir='/etc/nagios3/conf.d', $host_template='g
     ensure_resource('package','nagios-nrpe-plugin', { ensure => present })
   }
   ensure_resource('service','nagios3', { ensure => running })
-  file { "/etc/nagios-plugins/config/check_ssh_4_hostname.cfg":
+  file { '/etc/nagios-plugins/config/check_ssh_4_hostname.cfg':
      ensure  => file,
      content => template('nagioscfg/check_ssh_4_hostname.cfg.erb')
   }
