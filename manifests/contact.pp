@@ -12,6 +12,8 @@ define nagioscfg::contact($ensure = 'present',
                           $service_notification_commands = ['notify-by-email'],
                           $host_notification_commands = ['host-notify-by-email'],
                           $email = undef,
+                          $pushover_user = undef,
+                          $pushover_key = undef,
                           $can_submit_commands = '1'
 ) {
   $contact_groups_list = any2array($contact_groups)
