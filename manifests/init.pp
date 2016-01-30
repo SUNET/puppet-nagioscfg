@@ -65,6 +65,17 @@ class nagioscfg($hostgroups={}, $cfgdir='/etc/nagios3/conf.d', $host_template='g
     order   => '10',
     notify  => Service['nagios3']
   }
+  concat {"${cfgdir}/${config}_contacts.cfg":
+    owner => root,
+    group => root,
+    mode  => '0644'
+  }
+  concat::fragment {"${config}_contacts_header":
+    target  => "${cfgdir}/${config}_contacts.cfg",
+    content => "# Do not edit by hand - maintained by puppet",
+    order   => '10',
+    notify  => Service['nagios3']
+  }
   if has_key($hostgroups,'all') {
     each($hostgroups['all']) |$hostname| {
       notify {"generating ${hostname}": }

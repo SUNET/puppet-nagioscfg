@@ -1,0 +1,16 @@
+define contact {
+	contact_name  <%= @name %>
+	host_notifications_enabled <%= @host_notifications_enabled %>
+   	service_notifications_enabled <%= @service_notifications_enabled %>
+  	host_notification_period <%= @host_notification_period %>
+ 	service_notification_period <%= @service_notification_period %>
+        host_notification_options <%= @host_notification_options %>
+        service_notification_options <%= @service_notification_options %>
+	host_notification_commands_joined <%= @host_notification_commands_joined %>
+        service_notification_commands_joined <%= @service_notification_commands_joined %>
+   	email <%= @email %>
+        contactgroups <%= @contact_groups_joined %>
+	<% if @pushover_user %>address1 <%= @pushover_user %><% end %>
+	<% if @pushover_key %>address2 <%= @pushover_key %><% end %>
+	can_submit_commands <%= @can_submit_commands %>
+}
