@@ -7,8 +7,8 @@ define contact {
  	service_notification_period <%= @service_notification_period %>
         host_notification_options <%= @host_notification_options %>
         service_notification_options <%= @service_notification_options %>
-	host_notification_commands_joined <%= @host_notification_commands_joined %>
-        service_notification_commands_joined <%= @service_notification_commands_joined %>
+	host_notification_commands <%= @host_notification_commands_joined %>
+        service_notification_commands <%= @service_notification_commands_joined %>
    	<% if @email %>email <%= @email %><% end %>
         contactgroups <%= @contact_groups_joined %>
 	<% if @pushover_user %>address1 <%= @pushover_user %><% end %>
