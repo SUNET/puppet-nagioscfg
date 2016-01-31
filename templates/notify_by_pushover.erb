@@ -72,6 +72,8 @@ elif echo $title $message | grep -q 'OK' && [ "$okSound" != "" ] ;then
 	sound=$okSound
 fi
 
+message=`echo $message | tr '|' '\n'`
+
 curl -F "token=$appToken" \
 -F "user=$userKey" \
 -F "title=$title" \
