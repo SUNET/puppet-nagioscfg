@@ -9,7 +9,7 @@ class nagioscfg::passive {
   } ->
   augeas { 'nagios_passive_monitor_settings':
     incl     => "/etc/nagios3/nagios.cfg",
-    lens     => 'NagiosConfig.lns',
+    lens     => 'nagioscfg.aug',
     changes  => [
       "set enable_notifications 0",
       "set obsess_over_services 1",
