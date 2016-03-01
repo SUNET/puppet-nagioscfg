@@ -1,10 +1,10 @@
 class nagioscfg::passive {
   require augeas
   ensure_resource('package', 'nsca-client', { ensure => present })
-  nagioscfg::nagios_command { "obsessive_host_handler":
+  nagioscfg::command { "obsessive_host_handler":
     command_line => '/usr/share/icinga/plugins/eventhandlers/distributed-monitoring/send_nsca_host_or_service_check_result \'$_HOSTOCHP_HOST$\' \'$_HOSTOCHP_CONFIG$\' \'$HOSTNAME$\' \'$HOSTSTATE$\' \'$HOSTOUTPUT$\\n$LONGHOSTOUTPUT$|$HOSTPERFDATA$\''
   } ->
-  nagioscfg::nagios_command { "obsessive_service_handler":
+  nagioscfg::command { "obsessive_service_handler":
     command_line => '/usr/share/icinga/plugins/eventhandlers/distributed-monitoring/send_nsca_host_or_service_check_result \'$_SERVICEOCSP_HOST$\' \'$_SERVICEOCSP_CONFIG$\' \'$HOSTNAME$\' \'$SERVICEDESC$\' \'$SERVICESTATE$\' \'$SERVICEOUTPUT$\\n$LONGSERVICEOUTPUT$|$SERVICEPERFDATA$\''
   } ->
   augeas { 'nagios_passive_monitor_settings':
