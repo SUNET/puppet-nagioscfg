@@ -1,9 +1,9 @@
 class nagioscfg::passive {
   require augeas
   ensure_resource('package', 'nsca-client', { ensure => present })
-  $nsca_server = hiera("nsca-server");
-  $password = hiera("nsca-password");
-  $encryption_method = hiera("nsca-encryption-method");
+  $nsca_server = hiera("nsca_server");
+  $password = hiera("nsca_password");
+  $encryption_method = hiera("nsca_encryption_method");
 
   nagioscfg::command { "obsessive_host_handler":
     command_line => "/usr/share/icinga/plugins/eventhandlers/distributed-monitoring/send_nsca_host_or_service_check_result '${nsca_server}' '/etc/send_nsca.cfg' '\$HOSTNAME\$' '\$HOSTSTATE\$' '\$HOSTOUTPUT\$\\n\$LONGHOSTOUTPUT\$|\$HOSTPERFDATA\$'"
