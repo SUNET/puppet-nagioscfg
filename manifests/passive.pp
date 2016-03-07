@@ -18,4 +18,12 @@ class nagioscfg::passive {
       "set ochp_command obsessive_host_handler"
     ]
   }
+  $password = hiera("nsca-password");
+  $encryption_method = hiera("nsca-encryption-method");
+  file {'/etc/send_nsca.conf':
+     owner   => nagios,
+     group   => nagios,
+     mode    => '0400',
+     content => template("nagioscfg/send_nsca.cnf.erb")
+  }
 }
