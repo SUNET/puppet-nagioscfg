@@ -13,8 +13,8 @@ define nagioscfg::service($ensure = 'present',
                           $check_period = "24x7",
                           $notification_period = "24x7",
                           $max_check_attempts = "4",
-                          $normal_check_interval = "5",
-                          $retry_check_interval = "1"
+                          $check_interval = "5",
+                          $retry_interval = "1"
 ) {
   $hostgroup_list = $hostgroup_name ? {
     undef   => undef,
