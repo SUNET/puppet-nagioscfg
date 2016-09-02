@@ -15,6 +15,13 @@ class nagioscfg(
      ensure  => file,
      content => template('nagioscfg/check_ssh_4_hostname.cfg.erb')
   }
+  file { '/usr/bin/nagios-export.py': 
+     ensure  => file,
+     content => template('nagioscfg/nagios-export.erb'),
+     owner   => 'root',
+     group   => 'root',
+     mode    => '0755'
+  }
   concat {"${cfgdir}/${config}_hostgroups.cfg":
     owner => root,
     group => root,

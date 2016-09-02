@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+
+from pynag import Model
+
+def export(self):
+    return_buffer = "define %s {\n" % self.object_type
+    interesting_fields = ['service_description', 'hostgroup_name', 'name','host_name','host_groups','address','alias','members']
+    for key in interesting_fields:
+        if key == 'meta' or key in self['meta'].keys():
+            continue
+        value = self[key]
+        if value is not None:
+            return_buffer += "  %-30s %s\n" % (key, value)
+    return_buffer += "}\n"
+    return return_buffer
+
+
+for service in Model.Service.objects.all:
+    print export(service)
+
+for host in Model.Host.objects.all:
+    print export(host)
+
+for hostgroup in Model.Hostgroup.objects.all:
+    print export(hostgroup)
