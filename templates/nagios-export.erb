@@ -4,7 +4,7 @@ from pynag import Model
 
 def export(self):
     return_buffer = "define %s {\n" % self.object_type
-    interesting_fields = ['service_description', 'hostgroup_name', 'name','host_name','host_groups','address','alias','members']
+    interesting_fields = ['service_description', 'hostgroup_name', 'name','host_name','host_groups','address','members']
     for key in interesting_fields:
         if key == 'meta' or key in self['meta'].keys():
             continue
@@ -16,10 +16,13 @@ def export(self):
 
 
 for service in Model.Service.objects.all:
-    print export(service)
+    if ('host_name' in service and 'localhost' not in service['host_name']) or ('hostgroup_name' in service and 'all' not in service['hostgroup_name']):
+        print export(service)
 
 for host in Model.Host.objects.all:
-    print export(host)
+    if 'address' in host and 'host_name' in host and host['host_name'] != 'localhost':
+        print export(host)
 
 for hostgroup in Model.Hostgroup.objects.all:
-    print export(hostgroup)
+    if 'members' in hostgroup and 'all' not in hostgroup['hostgroup_name'] and 'localhost' not in hostgroup['members']:
+        print export(hostgroup)
