@@ -1,5 +1,6 @@
 class nagioscfg(
   $hostgroups       = {},
+  $contactgroups    = {},
   $cfgdir           = '/etc/nagios3/conf.d',
   $host_template    = 'generic-host',
   $config           = "nagioscfg",
