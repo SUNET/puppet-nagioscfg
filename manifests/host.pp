@@ -1,7 +1,7 @@
 include stdlib
 include concat
 
-define nagioscfg::host($ensure => 'present') {
+define nagioscfg::host($ensure='present') {
   $host_ip_list = dnsLookup($name)
   $host_ips = $host_ip_list ? {
     undef   => undef,
