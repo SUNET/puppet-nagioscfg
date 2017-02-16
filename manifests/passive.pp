@@ -1,4 +1,4 @@
-class nagioscfg::passive {
+class nagioscfg::passive ($enable_notifications='0') {
   require augeas
   ensure_resource('package', 'nsca-client', { ensure => present })
   $nsca_server = hiera("nsca_server");
@@ -15,7 +15,7 @@ class nagioscfg::passive {
     incl     => "/etc/nagios3/nagios.cfg",
     lens     => 'NagiosCfg.lns',
     changes  => [
-      "set enable_notifications 0",
+      "set enable_notifications $enable_notifications",
       "set obsess_over_services 1",
       "set obsess_over_hosts 1",
       "set ocsp_command obsessive_service_handler",
