@@ -10,9 +10,9 @@ class nagioscfg::slack($domain=undef,$token=undef) {
 
 define nagioscfg::slack::channel() {
    nagioscfg::command {"notify-host-to-slack-$name":
-      command-line => "/usr/lib/nagios/plugins/slack_nagios.pl -field slack_channel=#$name"
+      command_line => "/usr/lib/nagios/plugins/slack_nagios.pl -field slack_channel=#$name"
    }
    nagioscfg::command {"notify-service-to-slack-$name":
-      command-line => "/usr/lib/nagios/plugins/slack_nagios.pl -field slack_channel=#$name"
+      command_line => "/usr/lib/nagios/plugins/slack_nagios.pl -field slack_channel=#$name"
    }
 }
