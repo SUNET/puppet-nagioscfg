@@ -1,0 +1,7 @@
+
+# <%= @name %>
+define contactgroup {
+  contactgroup_name <%= @name %>
+  alias <%= @contactgroup_alias %>
+<% if @contactgroup_members %>  members <%= @contactgroup_members %><% end %>
+}
