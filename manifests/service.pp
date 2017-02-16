@@ -32,6 +32,7 @@ define nagioscfg::service($ensure = 'present',
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_services.cfg",
     content => template('nagioscfg/service.erb'),
     order   => '30',
-    notify  => Service['nagios3']
+    notify  => Service['nagios3'],
+    ensure  => $ensure
   }
 }

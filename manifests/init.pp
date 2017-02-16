@@ -66,6 +66,17 @@ class nagioscfg(
     order   => '10',
     notify  => Service['nagios3']
   }
+  concat {"${cfgdir}/${config}_contactgroups.cfg":
+    owner => root,
+    group => root,
+    mode  => '0644'
+  }
+  concat::fragment {"${config}_contactgroups_header":
+    target  => "${cfgdir}/${config}_contactgroups.cfg",
+    content => "# Do not edit by hand - maintained by puppet",
+    order   => '10',
+    notify  => Service['nagios3']
+  }
   concat {"${cfgdir}/${config}_commands.cfg":
     owner => root,
     group => root,
