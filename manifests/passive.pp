@@ -1,5 +1,7 @@
 class nagioscfg::passive (
   String $enable_notifications = '0',
+  String $obsess_over_services = '1',
+  String $obsess_over_hosts    = '1',
   String $nsca_server          = hiera('nsca_server'),
   String $password             = hiera('nsca_password'),
   String $encryption_method    = hiera('nsca_encryption_method', '14'),  # 14 is AES-128
@@ -19,8 +21,8 @@ class nagioscfg::passive (
     lens     => 'NagiosCfg.lns',
     changes  => [
       "set enable_notifications $enable_notifications",
-      "set obsess_over_services 1",
-      "set obsess_over_hosts 1",
+      "set obsess_over_services $obsess_over_services",
+      "set obsess_over_hosts $obsess_over_hosts",
       "set ocsp_command obsessive_service_handler",
       "set ochp_command obsessive_host_handler"
     ]
