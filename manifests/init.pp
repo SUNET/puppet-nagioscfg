@@ -4,14 +4,18 @@ class nagioscfg(
   $cfgdir           = '/etc/nagios3/conf.d',
   $host_template    = 'generic-host',
   $config           = "nagioscfg",
-  $manage_package   = true)
+  $manage_package   = true,
+  $service	    = "nagios3")
 {
   require stdlib
   if $manage_package {
     ensure_resource('package','nagios3', { ensure => present })
     ensure_resource('package','nagios-nrpe-plugin', { ensure => present })
   }
-  ensure_resource('service','nagios3', { ensure => running })
+  service { "${service}":
+    ensure  => running,
+    enable  => true,
+  }
   file { '/etc/nagios-plugins/config/check_ssh_4_hostname.cfg':
      ensure  => file,
      content => template('nagioscfg/check_ssh_4_hostname.cfg.erb')
@@ -32,7 +36,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_hostgroups.cfg",
     content => "# Do not edit by hand - maintained by puppet",
     order   => '10',
-    notify  => Service['nagios3']
+    notify  => Service[$service]
   }
   concat {"${cfgdir}/${config}_hosts.cfg":
     owner => root,
@@ -43,7 +47,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_hosts.cfg",
     content => "# Do not edit by hand - maintained by puppet",
     order   => '10',
-    notify  => Service['nagios3']
+    notify  => Service[$service]
   }
   concat {"${cfgdir}/${config}_servicegroups.cfg":
     owner => root,
@@ -54,7 +58,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_servicegroups.cfg",
     content => "# Do not edit by hand - maintained by puppet",
     order   => '10',
-    notify  => Service['nagios3']
+    notify  => Service[$service]
   }
   concat {"${cfgdir}/${config}_services.cfg":
     owner => root,
@@ -65,7 +69,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_services.cfg",
     content => "# Do not edit by hand - maintained by puppet",
     order   => '10',
-    notify  => Service['nagios3']
+    notify  => Service[$service]
   }
   concat {"${cfgdir}/${config}_contactgroups.cfg":
     owner => root,
@@ -76,7 +80,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_contactgroups.cfg",
     content => "# Do not edit by hand - maintained by puppet",
     order   => '10',
-    notify  => Service['nagios3']
+    notify  => Service[$service]
   }
   concat {"${cfgdir}/${config}_commands.cfg":
     owner => root,
@@ -87,7 +91,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_commands.cfg",
     content => "# Do not edit by hand - maintained by puppet",
     order   => '10',
-    notify  => Service['nagios3']
+    notify  => Service[$service]
   }
   concat {"${cfgdir}/${config}_contacts.cfg":
     owner => root,
@@ -98,7 +102,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_contacts.cfg",
     content => "# Do not edit by hand - maintained by puppet",
     order   => '10',
-    notify  => Service['nagios3']
+    notify  => Service[$service]
   }
 
   if has_key($hostgroups,'all') {

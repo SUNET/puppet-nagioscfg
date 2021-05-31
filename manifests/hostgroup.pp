@@ -18,7 +18,7 @@ define nagioscfg::hostgroup($hgalias = undef, $ensure = 'present', $members = un
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_hostgroups.cfg",
     content => template('nagioscfg/hostgroup.erb'),
     order   => '30',
-    notify  => Service['nagios3'],
+    notify  => Service["${nagioscfg::service}"],
     ensure  => $ensure
   }
 }

@@ -4,7 +4,7 @@ define nagioscfg::command($command_line = undef) {
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_commands.cfg",
     content => template('nagioscfg/command.erb'),
     order   => '30',
-    notify  => Service['nagios3']
+    notify  => Service["${nagioscfg::service}"]
   }
 }
 
