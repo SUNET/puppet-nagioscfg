@@ -1,11 +1,14 @@
+# Nagios configuration class
 class nagioscfg(
-  $hostgroups       = {},
-  $contactgroups    = {},
   $cfgdir           = '/etc/nagios3/conf.d',
+  $config           = 'nagioscfg',
+  $contactgroups    = {},
   $host_template    = 'generic-host',
-  $config           = "nagioscfg",
+  $hostgroups       = {},
   $manage_package   = true,
-  $service	    = "nagios3")
+  $service          = 'nagios3',
+  $single_ip        = false,
+)
 {
   require stdlib
   if $manage_package {
@@ -15,15 +18,15 @@ class nagioscfg(
   ensure_resource('service',$service, { ensure => running })
 
   file { '/etc/nagios-plugins/config/check_ssh_4_hostname.cfg':
-     ensure  => file,
-     content => template('nagioscfg/check_ssh_4_hostname.cfg.erb')
+    ensure  => file,
+    content => template('nagioscfg/check_ssh_4_hostname.cfg.erb')
   }
-  file { '/usr/bin/nagios-export.py': 
-     ensure  => file,
-     content => template('nagioscfg/nagios-export.erb'),
-     owner   => 'root',
-     group   => 'root',
-     mode    => '0755'
+  file { '/usr/bin/nagios-export.py':
+    ensure  => file,
+    content => template('nagioscfg/nagios-export.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755'
   }
   concat {"${cfgdir}/${config}_hostgroups.cfg":
     owner => root,
@@ -32,7 +35,7 @@ class nagioscfg(
   }
   concat::fragment {"${config}_hostgroups_header":
     target  => "${cfgdir}/${config}_hostgroups.cfg",
-    content => "# Do not edit by hand - maintained by puppet",
+    content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
     notify  => Service[$service]
   }
@@ -43,7 +46,7 @@ class nagioscfg(
   }
   concat::fragment {"${config}_hosts_header":
     target  => "${cfgdir}/${config}_hosts.cfg",
-    content => "# Do not edit by hand - maintained by puppet",
+    content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
     notify  => Service[$service]
   }
@@ -54,7 +57,7 @@ class nagioscfg(
   }
   concat::fragment {"${config}_servicegroups_header":
     target  => "${cfgdir}/${config}_servicegroups.cfg",
-    content => "# Do not edit by hand - maintained by puppet",
+    content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
     notify  => Service[$service]
   }
@@ -65,7 +68,7 @@ class nagioscfg(
   }
   concat::fragment {"${config}_services_header":
     target  => "${cfgdir}/${config}_services.cfg",
-    content => "# Do not edit by hand - maintained by puppet",
+    content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
     notify  => Service[$service]
   }
@@ -76,7 +79,7 @@ class nagioscfg(
   }
   concat::fragment {"${config}_contactgroups_header":
     target  => "${cfgdir}/${config}_contactgroups.cfg",
-    content => "# Do not edit by hand - maintained by puppet",
+    content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
     notify  => Service[$service]
   }
@@ -87,7 +90,7 @@ class nagioscfg(
   }
   concat::fragment {"${config}_commands_header":
     target  => "${cfgdir}/${config}_commands.cfg",
-    content => "# Do not edit by hand - maintained by puppet",
+    content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
     notify  => Service[$service]
   }
@@ -98,7 +101,7 @@ class nagioscfg(
   }
   concat::fragment {"${config}_contacts_header":
     target  => "${cfgdir}/${config}_contacts.cfg",
-    content => "# Do not edit by hand - maintained by puppet",
+    content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
     notify  => Service[$service]
   }
@@ -106,13 +109,13 @@ class nagioscfg(
   if has_key($hostgroups,'all') {
     each($hostgroups['all']) |$hostname| {
       notify {"generating ${hostname}": }
-      nagioscfg::host {$hostname: }
+      nagioscfg::host {$hostname: single_ip => $single_ip }
     }
   }
 
   each($hostgroups) |$hgn, $members| {
-     if $hgn != 'all' {
-        nagioscfg::hostgroup {$hgn: members => $members}
-     }
+    if $hgn != 'all' {
+      nagioscfg::hostgroup {$hgn: members => $members}
+    }
   }
 }
