@@ -2,6 +2,7 @@ include stdlib
 include concat
 
 define nagioscfg::service($ensure = 'present',
+                          $action_url = undef,
                           $hostgroup_name = undef,
                           $host_name = undef,
                           $description = undef,

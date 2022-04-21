@@ -4,5 +4,6 @@ define host {
   use <%= scope.lookupvar("nagioscfg::host_template") %>
   host_name <%= @name %>
   alias <%= @name %>
+<% if @action_url %>  action_url <%= @action_url %><% end %>
 <% if @host_ips %>  address <%= @host_ips %><% end %>
 }
