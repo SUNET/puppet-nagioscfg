@@ -6,4 +6,5 @@ define host {
   alias <%= @name %>
 <% if @action_url %>  action_url <%= @action_url %><% end %>
 <% if @host_ips %>  address <%= @host_ips %><% end %>
+<% if @parents %>  parents <%= @parents %><% end %>
 }

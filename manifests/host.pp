@@ -18,6 +18,12 @@ define nagioscfg::host($ensure='present',
     default => join($host_ip_list, ',')
   }
 
+  # BYOF (Bring Your Own Fact) for the parents. For insperation see swamid-ops
+  # and the facters for the monitor hosts.
+  if $facts["parents_to_${name}"]{
+    $parents = $facts["parents_to_${name}"]
+  }
+
   concat::fragment {"${nagioscfg::config}_host_${name}":
     ensure  => $ensure,
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_hosts.cfg",
