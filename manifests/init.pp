@@ -9,6 +9,7 @@ class nagioscfg(
   $manage_service   = true,
   $service          = 'nagios3',
   $single_ip        = false,
+  Optional[String] $default_host_group = undef,
 )
 {
   require stdlib
@@ -112,7 +113,7 @@ class nagioscfg(
   if has_key($hostgroups,'all') {
     each($hostgroups['all']) |$hostname| {
       notify {"generating ${hostname}": }
-      nagioscfg::host {$hostname: single_ip => $single_ip }
+      nagioscfg::host {$hostname: single_ip => $single_ip, default_host_group => $default_host_group }
     }
   }
 
