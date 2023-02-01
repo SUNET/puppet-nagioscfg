@@ -4,7 +4,7 @@ include concat
 define nagioscfg::host($ensure='present',
   $single_ip=false,
   $action_url = undef,
-  Optonal[String] $default_host_group = undef,
+  Optional[String] $default_host_group = undef,
 ) {
   $temp_ip_list = dnsLookup($name)
   if $single_ip {
