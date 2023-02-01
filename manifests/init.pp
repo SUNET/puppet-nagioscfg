@@ -10,6 +10,7 @@ class nagioscfg(
   $service          = 'nagios3',
   $single_ip        = false,
   Optional[String] $default_host_group = undef,
+  Optional[Hash] $additional_hosts = undef,
 )
 {
   require stdlib
