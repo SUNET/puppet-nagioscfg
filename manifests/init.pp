@@ -10,7 +10,7 @@ class nagioscfg(
   $service          = 'nagios3',
   $single_ip        = false,
   Optional[String] $default_host_group = undef,
-  Optional[Hash] $additional_hosts = undef,
+  Hash $additional_entities = {},
 )
 {
   require stdlib
@@ -123,4 +123,17 @@ class nagioscfg(
       nagioscfg::hostgroup {$hgn: members => $members}
     }
   }
+
+  # Run over all additional entities and create them but don't add any
+  # default_host_group since the default group is uses add nrpe checks by
+  # sunet::naemon_monitor and it's not sure if all additional hosts can talk
+  # NRPE with us.
+  each($additional_entities) |$hgn, $members| {
+    each($members) |$hostname| {
+      notify {"generating ${hostname}": }
+      nagioscfg::host {$hostname: single_ip => $single_ip}
+    }
+    nagioscfg::hostgroup {$hgn: members => $members}
+  }
+
 }
