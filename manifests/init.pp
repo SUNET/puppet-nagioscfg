@@ -4,7 +4,7 @@ class nagioscfg(
   $config           = 'nagioscfg',
   $contactgroups    = {},
   $host_template    = 'generic-host',
-  $hostgroups       = {},
+  $hostgroups       = $facts['configured_hosts_in_cosmos'],
   $manage_package   = true,
   $manage_service   = true,
   $service          = 'nagios3',
