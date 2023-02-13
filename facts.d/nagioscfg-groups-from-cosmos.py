@@ -15,7 +15,9 @@ def _load_db():
    rules_file = "/etc/puppet/cosmos-rules.yaml";
    if os.path.exists(rules_file):
       with open(rules_file) as fd:
-         rules.update(yaml.load(fd, Loader=yaml.FullLoader))
+         # Change when all legacy OSes are gone
+         #rules.update(yaml.load(fd, Loader=yaml.FullLoader))
+         rules.update(yaml.load(fd))
 
    all_hosts = _all_hosts()
 
