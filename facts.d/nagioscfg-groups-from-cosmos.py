@@ -15,9 +15,12 @@ def _load_db():
    rules_file = "/etc/puppet/cosmos-rules.yaml";
    if os.path.exists(rules_file):
       with open(rules_file) as fd:
-         # Change when all legacy OSes are gone
-         #rules.update(yaml.load(fd, Loader=yaml.FullLoader))
-         rules.update(yaml.load(fd))
+        # Supress warnings from modern versions of PyYAML Loader was introduced
+        # in PyYAML 5.1 which is not available on all our machines.
+        try:
+            rules.update(yaml.load(fd, Loader=yaml.FullLoader))
+        except:
+            rules.update(yaml.load(fd))
 
    all_hosts = _all_hosts()
 
