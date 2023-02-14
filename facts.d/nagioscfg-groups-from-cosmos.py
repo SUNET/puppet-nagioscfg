@@ -15,11 +15,19 @@ def _load_db():
    rules_file = "/etc/puppet/cosmos-rules.yaml";
    if os.path.exists(rules_file):
       with open(rules_file) as fd:
-        # Supress warnings from modern versions of PyYAML Loader was introduced
-        # in PyYAML 5.1 which is not available on all our machines.
+        # Supress warnings from modern versions of PyYAML
+        #
+        # File
+        # "/etc/puppet/cosmos-modules/nagioscfg/facts.d/nagioscfg-groups-from-cosmos.py",
+        # line 18, in _load_db rules.update(yaml.load(fd,
+        # Loader=yaml.FullLoader)) AttributeError: module 'yaml' has no
+        # attribute 'FullLoader'
+        #
+        # Loader was introduced in PyYAML 5.1 which is not available on all our
+        # machines.
         try:
             rules.update(yaml.load(fd, Loader=yaml.FullLoader))
-        except:
+        except AttributeError:
             rules.update(yaml.load(fd))
 
    all_hosts = _all_hosts()
