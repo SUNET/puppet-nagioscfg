@@ -15,5 +15,8 @@ define service {
 <% if @retry_interval %>  retry_interval <%= @retry_interval %><% end %>
 <% if @check_period %>  check_period <%= @check_period %><% end %>
 <% if @notification_period %>  notification_period <%= @notification_period %><% end %>
+<% if @notification_interval %>  notification_interval <%= @notification_interval %><% end %>
+<% if @notification_options %>  notification_options <%= @notification_options %><% end %>
+<% if @notifications_enabled %>  notifications_enabled <%= @notifications_enabled %><% end %>
   register <%= @register %>
 }

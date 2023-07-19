@@ -15,7 +15,10 @@ define nagioscfg::service($ensure = 'present',
                           $notification_period = "24x7",
                           $max_check_attempts = "4",
                           $check_interval = "5",
-                          $retry_interval = "1"
+                          $retry_interval = "1",
+                          $notification_options = undef,
+                          $notification_interval = undef,
+                          $notifications_enabled = undef,
 ) {
   $hostgroup_list = $hostgroup_name ? {
     undef   => undef,
