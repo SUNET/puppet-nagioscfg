@@ -1,12 +1,19 @@
 include stdlib
 include concat
 # Use a template to create a host config
-define nagioscfg::host($ensure='present',
-  $single_ip=false,
-  $action_url = undef,
+define nagioscfg::host(
+  $ensure                              = 'present',
+  $single_ip                           = false,
+  $action_url                          = undef,
+  $sort_alphabetically                 = false,
   Optional[String] $default_host_group = undef,
 ) {
-  $temp_ip_list = reverse(sort(dnsLookup($name)))
+  $unsorted_temp_ip_list = dnsLookup($name)
+  if $sort_alphabetically {
+    $temp_ip_list = sort($unsorted_temp_ip_list)
+  } else {
+    $temp_ip_list = $unsorted_temp_ip_list
+  }
   if $single_ip {
     $host_ip_list = [ $temp_ip_list[0] ]
   } else {
