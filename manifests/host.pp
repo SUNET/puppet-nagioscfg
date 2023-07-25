@@ -6,7 +6,7 @@ define nagioscfg::host($ensure='present',
   $action_url = undef,
   Optional[String] $default_host_group = undef,
 ) {
-  $temp_ip_list = sort(dnsLookup($name))
+  $temp_ip_list = reverse(sort(dnsLookup($name)))
   if $single_ip {
     $host_ip_list = [ $temp_ip_list[0] ]
   } else {
