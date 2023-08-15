@@ -1,8 +1,7 @@
 include stdlib
 include concat
 
-define nagioscfg::service($ensure = 'present',
-                          $action_url = undef,
+define nagioscfg::service($action_url = undef,
                           $hostgroup_name = undef,
                           $host_name = undef,
                           $description = undef,
@@ -37,6 +36,5 @@ define nagioscfg::service($ensure = 'present',
     content => template('nagioscfg/service.erb'),
     order   => '30',
     notify  => Service["${nagioscfg::service}"],
-    ensure  => $ensure
   }
 }

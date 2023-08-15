@@ -1,7 +1,7 @@
 include stdlib
 include concat
 
-define nagioscfg::servicegroup($sgalias = undef, $ensure = 'present', $members = undef) {
+define nagioscfg::servicegroup($sgalias = undef, $members = undef) {
   $servicegroup_alias = $sgalias ? {
     undef   => $name,
     default => $sgalias
@@ -15,6 +15,5 @@ define nagioscfg::servicegroup($sgalias = undef, $ensure = 'present', $members =
     content => template('nagioscfg/servicegroup.erb'),
     order   => '30',
     notify  => Service["${nagioscfg::service}"],
-    ensure  => $ensure
   }
 }
