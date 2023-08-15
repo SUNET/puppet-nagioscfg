@@ -1,7 +1,7 @@
 include stdlib
 include concat
 
-define nagioscfg::hostgroup($hgalias = undef, $ensure = 'present', $members = undef) {
+define nagioscfg::hostgroup($hgalias = undef, $members = undef) {
   $hostgroup_alias = $hgalias ? {
     undef   => $name,
     default => $hgalias
@@ -19,6 +19,5 @@ define nagioscfg::hostgroup($hgalias = undef, $ensure = 'present', $members = un
     content => template('nagioscfg/hostgroup.erb'),
     order   => '30',
     notify  => Service["${nagioscfg::service}"],
-    ensure  => $ensure
   }
 }

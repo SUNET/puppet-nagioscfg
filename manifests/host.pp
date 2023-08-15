@@ -2,7 +2,6 @@ include stdlib
 include concat
 # Use a template to create a host config
 define nagioscfg::host(
-  $ensure                              = 'present',
   $single_ip                           = false,
   $action_url                          = undef,
   $sort_alphabetically                 = false,
@@ -33,7 +32,6 @@ define nagioscfg::host(
   }
 
   concat::fragment {"${nagioscfg::config}_host_${name}":
-    ensure  => $ensure,
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_hosts.cfg",
     content => template('nagioscfg/host.erb'),
     order   => '30',

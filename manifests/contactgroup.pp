@@ -19,6 +19,5 @@ define nagioscfg::contactgroup($cgalias = undef, $ensure = 'present', $members =
     content => template('nagioscfg/contactgroup.erb'),
     order   => '30',
     notify  => Service["${nagioscfg::service}"],
-    ensure  => $ensure
   }
 }
