@@ -1,5 +1,3 @@
-include stdlib
-
 # Something with URIs
 define nagioscfg::checks::uri_content($match = undef, $uri = '/') {
   ensure_resource('nagioscfg::command', 'check_http_content', {

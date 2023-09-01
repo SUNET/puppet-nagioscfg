@@ -1,5 +1,3 @@
-
-include stdlib
 # Something with zones
 define nagioscfg::checks::zone ($hostgroup_name = []) {
 

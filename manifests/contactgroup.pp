@@ -1,6 +1,3 @@
-include stdlib
-include concat
-
 # Create contacts groups
 define nagioscfg::contactgroup($cgalias = undef, $ensure = 'present', $members = undef) {
   $contactgroup_alias = $cgalias ? {

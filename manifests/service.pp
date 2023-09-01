@@ -1,6 +1,3 @@
-include stdlib
-include concat
-
 # Create a service
 define nagioscfg::service($action_url = undef,
                           $hostgroup_name = undef,

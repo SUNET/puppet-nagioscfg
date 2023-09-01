@@ -1,5 +1,3 @@
-include stdlib
-include concat
 # Use a template to create a host config
 define nagioscfg::host(
   $single_ip                           = false,

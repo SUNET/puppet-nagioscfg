@@ -1,6 +1,3 @@
-include stdlib
-include concat
-
 # Create host groups
 define nagioscfg::hostgroup($hgalias = undef, $members = undef) {
   $hostgroup_alias = $hgalias ? {

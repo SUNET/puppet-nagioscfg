@@ -1,6 +1,3 @@
-include stdlib
-include concat
-
 # Create service groups
 define nagioscfg::servicegroup($sgalias = undef, $members = undef) {
   $servicegroup_alias = $sgalias ? {

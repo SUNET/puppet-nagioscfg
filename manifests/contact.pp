@@ -1,6 +1,3 @@
-include stdlib
-include concat
-
 # Create contacts
 define nagioscfg::contact($ensure = 'present',
                           $contact_groups = ['admins'],
