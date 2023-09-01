@@ -1,12 +1,13 @@
 include stdlib
 include concat
 
+# Create contacts
 define nagioscfg::contact($ensure = 'present',
                           $contact_groups = ['admins'],
                           $host_notifications_enabled = '1',
                           $service_notifications_enabled = '1',
-                          $host_notification_period = "24x7",
-                          $service_notification_period = "24x7",
+                          $host_notification_period = '24x7',
+                          $service_notification_period = '24x7',
                           $host_notification_options = 'd,u,r',
                           $service_notification_options = 'w,u,c,r',
                           $service_notification_commands = ['notify-service-by-email'],
@@ -26,6 +27,6 @@ define nagioscfg::contact($ensure = 'present',
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_contacts.cfg",
     content => template('nagioscfg/contact.erb'),
     order   => '30',
-    notify  => Service["${nagioscfg::service}"]
+    notify  => Service[$nagioscfg::service]
   }
 }

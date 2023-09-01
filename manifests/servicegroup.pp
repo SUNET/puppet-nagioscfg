@@ -1,6 +1,7 @@
 include stdlib
 include concat
 
+# Create service groups
 define nagioscfg::servicegroup($sgalias = undef, $members = undef) {
   $servicegroup_alias = $sgalias ? {
     undef   => $name,
@@ -14,6 +15,6 @@ define nagioscfg::servicegroup($sgalias = undef, $members = undef) {
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_servicegroups.cfg",
     content => template('nagioscfg/servicegroup.erb'),
     order   => '30',
-    notify  => Service["${nagioscfg::service}"],
+    notify  => Service[$nagioscfg::service],
   }
 }

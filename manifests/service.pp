@@ -1,6 +1,7 @@
 include stdlib
 include concat
 
+# Create a service
 define nagioscfg::service($action_url = undef,
                           $hostgroup_name = undef,
                           $host_name = undef,
@@ -9,12 +10,12 @@ define nagioscfg::service($action_url = undef,
                           $use = undef,
                           $contact_groups = ['admins'],
                           $notes = undef,
-                          $register = "1",
-                          $check_period = "24x7",
-                          $notification_period = "24x7",
-                          $max_check_attempts = "4",
-                          $check_interval = "5",
-                          $retry_interval = "1",
+                          $register = '1',
+                          $check_period = '24x7',
+                          $notification_period = '24x7',
+                          $max_check_attempts = '4',
+                          $check_interval = '5',
+                          $retry_interval = '1',
                           $notification_options = undef,
                           $notification_interval = undef,
                           $notifications_enabled = undef,
@@ -35,6 +36,6 @@ define nagioscfg::service($action_url = undef,
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_services.cfg",
     content => template('nagioscfg/service.erb'),
     order   => '30',
-    notify  => Service["${nagioscfg::service}"],
+    notify  => Service[$nagioscfg::service],
   }
 }
