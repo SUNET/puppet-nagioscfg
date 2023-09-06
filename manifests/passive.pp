@@ -14,13 +14,13 @@ class nagioscfg::passive (
   $binary = '/usr/share/icinga/plugins/eventhandlers/distributed-monitoring/send_nsca_host_or_service_check_result'
   $command_line_one_h = " '${nsca_server}' '/etc/send_nsca.cfg' '\$HOSTNAME\$' '\$HOSTSTATE\$'"
   $command_line_two_h = " '\$HOSTOUTPUT\$\\n\$LONGHOSTOUTPUT\$|\$HOSTPERFDATA\$'"
-  nagioscfg::command { 'obsessive_host_handler':
-    command_line => "${binary}${command_line_one_h}${command_line_two_h}"
-  }
 
   $command_line_one_s = " '${nsca_server}' '/etc/send_nsca.cfg' '\$HOSTNAME\$' '\$SERVICEDESC\$' '\$SERVICESTATE\$'"
   $command_line_two_s = " '\$SERVICEOUTPUT\$\\n\$LONGSERVICEOUTPUT\$|\$SERVICEPERFDATA\$'"
 
+  nagioscfg::command { 'obsessive_host_handler':
+    command_line => "${binary}${command_line_one_h}${command_line_two_h}"
+  }
   -> nagioscfg::command { 'obsessive_service_handler':
     command_line => "${binary}${command_line_one_s}${command_line_two_s}"
   }
