@@ -1,6 +1,4 @@
-include stdlib
-include concat
-
+# Create contacts groups
 define nagioscfg::contactgroup($cgalias = undef, $ensure = 'present', $members = undef) {
   $contactgroup_alias = $cgalias ? {
     undef   => $name,
@@ -18,6 +16,6 @@ define nagioscfg::contactgroup($cgalias = undef, $ensure = 'present', $members =
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_contactgroups.cfg",
     content => template('nagioscfg/contactgroup.erb'),
     order   => '30',
-    notify  => Service["${nagioscfg::service}"],
+    notify  => Service[$nagioscfg::service],
   }
 }

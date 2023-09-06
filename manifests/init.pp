@@ -13,7 +13,6 @@ class nagioscfg(
   Hash $additional_entities = {},
 )
 {
-  require stdlib
   if $manage_package {
     ensure_resource('package','nagios3', { ensure => present })
     ensure_resource('package','nagios-nrpe-plugin', { ensure => present })
