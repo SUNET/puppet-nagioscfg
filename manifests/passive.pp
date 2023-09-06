@@ -11,11 +11,18 @@ class nagioscfg::passive (
   require augeas
   ensure_resource('package', 'nsca-client', { ensure => present })
 
+  $binary = '/usr/share/icinga/plugins/eventhandlers/distributed-monitoring/send_nsca_host_or_service_check_result'
+  $command_line_one = " '${nsca_server}' '/etc/send_nsca.cfg' '\$HOSTNAME\$' '\$HOSTSTATE\$'"
+  $command_line_two = " '\$HOSTOUTPUT\$\\n\$LONGHOSTOUTPUT\$|\$HOSTPERFDATA\$'"
   nagioscfg::command { 'obsessive_host_handler':
-    command_line => "/usr/share/icinga/plugins/eventhandlers/distributed-monitoring/send_nsca_host_or_service_check_result '${nsca_server}' '/etc/send_nsca.cfg' '\$HOSTNAME\$' '\$HOSTSTATE\$' '\$HOSTOUTPUT\$\\n\$LONGHOSTOUTPUT\$|\$HOSTPERFDATA\$'" # lint:ignore:140chars
+    command_line => "${binary}${command_line_one}${command_line_two}"
   }
+
+  $command_line_one = " '${nsca_server}' '/etc/send_nsca.cfg' '\$HOSTNAME\$' '\$SERVICEDESC\$' '\$SERVICESTATE\$'"
+  $command_line_two = " '\$SERVICEOUTPUT\$\\n\$LONGSERVICEOUTPUT\$|\$SERVICEPERFDATA\$'"
+
   -> nagioscfg::command { 'obsessive_service_handler':
-    command_line => "/usr/share/icinga/plugins/eventhandlers/distributed-monitoring/send_nsca_host_or_service_check_result '${nsca_server}' '/etc/send_nsca.cfg' '\$HOSTNAME\$' '\$SERVICEDESC\$' '\$SERVICESTATE\$' '\$SERVICEOUTPUT\$\\n\$LONGSERVICEOUTPUT\$|\$SERVICEPERFDATA\$'" # lint:ignore:140chars
+    command_line => "${binary}${command_line_one}${command_line_two}"
   }
   -> augeas { 'nagios_passive_monitor_settings':
     incl    => $nagios_config_file,
