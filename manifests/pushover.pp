@@ -10,19 +10,19 @@ class nagioscfg::pushover {
 
   $binary = '/usr/lib/nagios/plugins/notify_by_pushover'
 
-  $command_line_one   = " -u '\$CONTACTADDRESS1\$' -a '\$CONTACTADDRESS2\$' -t '\$NOTIFICATIONTYPE\$ Host Alert: \$HOSTNAME\$"
-  $command_line_two   = " is \$HOSTSTATE\$' -m 'Notification Type: \$NOTIFICATIONTYPE\$|Host: \$HOSTNAME\$|State: \$HOSTSTATE\$|Address:"
-  $command_line_three = " \$HOSTADDRESS\$|Info: \$HOSTOUTPUT\$||Date/Time: \$LONGDATETIME\$'"
+  $command_line_one_h   = " -u '\$CONTACTADDRESS1\$' -a '\$CONTACTADDRESS2\$' -t '\$NOTIFICATIONTYPE\$ Host Alert: \$HOSTNAME\$"
+  $command_line_two_h   = " is \$HOSTSTATE\$' -m 'Notification Type: \$NOTIFICATIONTYPE\$|Host: \$HOSTNAME\$|State: \$HOSTSTATE\$|Address:"
+  $command_line_three_h = " \$HOSTADDRESS\$|Info: \$HOSTOUTPUT\$||Date/Time: \$LONGDATETIME\$'"
 
   nagioscfg::command { 'notify-host-by-pushover':
-    command_line => "${binary}${command_line_one}${command_line_two}${command_line_three}"
+    command_line => "${binary}${command_line_one_h}${command_line_two_h}${command_line_three_h}"
   }
 
-  $command_line_one  = " -u '\$CONTACTADDRESS1\$' -a '\$CONTACTADDRESS2\$' -t '\$NOTIFICATIONTYPE\$ Service Alert:"
-  $command_line_two  = " \$HOSTALIAS\$/\$SERVICEDESC\$ is \$SERVICESTATE\$' -m 'Notification Type: \$NOTIFICATIONTYPE\$||Service:"
-  $commandline_three = " \$SERVICEDESC\$|Host: \$HOSTALIAS\$|Address: \$HOSTADDRESS\$|State: \$SERVICESTATE\$||Date/Time:"
-  $command_line_four = " \$LONGDATETIME\$||Additional Info:||\$SERVICEOUTPUT\$'"
+  $command_line_one_s  = " -u '\$CONTACTADDRESS1\$' -a '\$CONTACTADDRESS2\$' -t '\$NOTIFICATIONTYPE\$ Service Alert:"
+  $command_line_two_s  = " \$HOSTALIAS\$/\$SERVICEDESC\$ is \$SERVICESTATE\$' -m 'Notification Type: \$NOTIFICATIONTYPE\$||Service:"
+  $command_line_three_s = " \$SERVICEDESC\$|Host: \$HOSTALIAS\$|Address: \$HOSTADDRESS\$|State: \$SERVICESTATE\$||Date/Time:"
+  $command_line_four_s = " \$LONGDATETIME\$||Additional Info:||\$SERVICEOUTPUT\$'"
   nagioscfg::command { 'notify-service-by-pushover':
-    command_line => "${binary}${command_line_one}${command_line_two}${command_line_three}${command_line_four}"
+    command_line => "${binary}${command_line_one_s}${command_line_two_s}${command_line_three_s}${command_line_four_s}"
   }
 }
