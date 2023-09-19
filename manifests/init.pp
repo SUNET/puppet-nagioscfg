@@ -10,6 +10,7 @@ class nagioscfg(
   $service          = 'nagios3',
   $single_ip        = false,
   Optional[String] $default_host_group = undef,
+  Optional[Hash] $custom_host_fields = undef,
   Hash $additional_entities = {},
 )
 {
@@ -113,7 +114,7 @@ class nagioscfg(
   if has_key($hostgroups,'all') {
     each($hostgroups['all']) |$hostname| {
       notify {"generating ${hostname}": }
-      nagioscfg::host {$hostname: single_ip => $single_ip, default_host_group => $default_host_group }
+      nagioscfg::host {$hostname: single_ip => $single_ip, default_host_group => $default_host_group, custom_host_fields => $custom_host_fields[$hostname] }
     }
   }
 

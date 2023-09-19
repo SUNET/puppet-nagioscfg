@@ -4,6 +4,7 @@ define nagioscfg::host(
   $action_url                          = undef,
   $sort_alphabetically                 = false,
   Optional[String] $default_host_group = undef,
+  Optional[Hash] $custom_host_fields = undef,
 ) {
   $unsorted_temp_ip_list = dnsLookup($name)
   if $sort_alphabetically {
