@@ -114,7 +114,11 @@ class nagioscfg(
   if has_key($hostgroups,'all') {
     each($hostgroups['all']) |$hostname| {
       notify {"generating ${hostname}": }
-      nagioscfg::host {$hostname: single_ip => $single_ip, default_host_group => $default_host_group, custom_host_fields => $custom_host_fields[$hostname] }
+      if $custom_host_fields == undef {
+            nagioscfg::host {$hostname: single_ip => $single_ip, default_host_group => $default_host_group}
+      } elsif $custom_host_fields != undef {
+            nagioscfg::host {$hostname: single_ip => $single_ip, default_host_group => $default_host_group, custom_host_fields => $custom_host_fields[$hostname] }
+      }
     }
   }
 
