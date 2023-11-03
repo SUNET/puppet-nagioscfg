@@ -1,14 +1,15 @@
 # Nagios configuration class
 class nagioscfg(
-  $cfgdir           = '/etc/nagios3/conf.d',
-  $config           = 'nagioscfg',
-  $contactgroups    = {},
-  $host_template    = 'generic-host',
-  $hostgroups       = $facts['configured_hosts_in_cosmos'],
-  $manage_package   = true,
-  $manage_service   = true,
-  $service          = 'nagios3',
-  $single_ip        = false,
+  $cfgdir              = '/etc/nagios3/conf.d',
+  $config              = 'nagioscfg',
+  $contactgroups       = {},
+  $host_template       = 'generic-host',
+  $hostgroups          = $facts['configured_hosts_in_cosmos'],
+  $manage_package      = true,
+  $manage_service      = true,
+  $service             = 'nagios3',
+  $single_ip           = false,
+  $sort_alphabetically = false,
   Optional[String] $default_host_group = undef,
   Optional[Hash] $custom_host_fields = undef,
   Hash $additional_entities = {},
@@ -115,9 +116,9 @@ class nagioscfg(
     each($hostgroups['all']) |$hostname| {
       notify {"generating ${hostname}": }
       if $custom_host_fields == undef {
-            nagioscfg::host {$hostname: single_ip => $single_ip, default_host_group => $default_host_group}
+            nagioscfg::host {$hostname: single_ip => $single_ip, sort_alphabetically => $sort_alphabetically, default_host_group => $default_host_group}
       } elsif $custom_host_fields != undef {
-            nagioscfg::host {$hostname: single_ip => $single_ip, default_host_group => $default_host_group, custom_host_fields => $custom_host_fields[$hostname] }
+            nagioscfg::host {$hostname: single_ip => $single_ip, sort_alphabetically => $sort_alphabetically, default_host_group => $default_host_group, custom_host_fields => $custom_host_fields[$hostname] }
       }
     }
   }
@@ -135,7 +136,7 @@ class nagioscfg(
   each($additional_entities) |$hgn, $members| {
     each($members) |$hostname| {
       notify {"generating ${hostname}": }
-      nagioscfg::host {$hostname: single_ip => $single_ip}
+      nagioscfg::host {$hostname: single_ip => $single_ip, sort_alphabetically => $sort_alphabetically}
     }
     nagioscfg::hostgroup {$hgn: members => $members}
   }
