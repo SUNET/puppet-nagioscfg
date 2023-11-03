@@ -136,7 +136,7 @@ class nagioscfg(
   each($additional_entities) |$hgn, $members| {
     each($members) |$hostname| {
       notify {"generating ${hostname}": }
-      nagioscfg::host {$hostname: single_ip => $single_ip}
+      nagioscfg::host {$hostname: single_ip => $single_ip, sort_alphabetically => $sort_alphabetically}
     }
     nagioscfg::hostgroup {$hgn: members => $members}
   }
