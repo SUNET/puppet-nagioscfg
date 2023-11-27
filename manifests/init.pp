@@ -3,6 +3,7 @@ class nagioscfg(
   $cfgdir              = '/etc/nagios3/conf.d',
   $config              = 'nagioscfg',
   $contactgroups       = {},
+  $exclude_hosts       = [],
   $host_template       = 'generic-host',
   $hostgroups          = $facts['configured_hosts_in_cosmos'],
   $manage_package      = true,
@@ -114,18 +115,21 @@ class nagioscfg(
 
   if has_key($hostgroups,'all') {
     each($hostgroups['all']) |$hostname| {
-      notify {"generating ${hostname}": }
-      if $custom_host_fields == undef {
-            nagioscfg::host {$hostname: single_ip => $single_ip, sort_alphabetically => $sort_alphabetically, default_host_group => $default_host_group}
-      } elsif $custom_host_fields != undef {
-            nagioscfg::host {$hostname: single_ip => $single_ip, sort_alphabetically => $sort_alphabetically, default_host_group => $default_host_group, custom_host_fields => $custom_host_fields[$hostname] }
+      unless $hostname in $excluded_hosts {
+        notify {"generating ${hostname}": }
+        if $custom_host_fields == undef {
+          nagioscfg::host {$hostname: single_ip => $single_ip, sort_alphabetically => $sort_alphabetically, default_host_group => $default_host_group}
+        } elsif $custom_host_fields != undef {
+          nagioscfg::host {$hostname: single_ip => $single_ip, sort_alphabetically => $sort_alphabetically, default_host_group => $default_host_group, custom_host_fields => $custom_host_fields[$hostname] }
+        }
       }
     }
   }
 
   each($hostgroups) |$hgn, $members| {
     if $hgn != 'all' {
-      nagioscfg::hostgroup {$hgn: members => $members}
+      $filtered_members = delete($members, $excluded_hosts)
+      nagioscfg::hostgroup {$hgn: members => $filtered_members}
     }
   }
 
