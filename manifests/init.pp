@@ -115,7 +115,7 @@ class nagioscfg(
 
   if has_key($hostgroups,'all') {
     each($hostgroups['all']) |$hostname| {
-      unless $hostname in $excluded_hosts {
+      unless $hostname in $exclude_hosts {
         notify {"generating ${hostname}": }
         if $custom_host_fields == undef {
           nagioscfg::host {$hostname: single_ip => $single_ip, sort_alphabetically => $sort_alphabetically, default_host_group => $default_host_group}
@@ -128,7 +128,7 @@ class nagioscfg(
 
   each($hostgroups) |$hgn, $members| {
     if $hgn != 'all' {
-      $filtered_members = delete($members, $excluded_hosts)
+      $filtered_members = delete($members, $exclude_hosts)
       nagioscfg::hostgroup {$hgn: members => $filtered_members}
     }
   }
