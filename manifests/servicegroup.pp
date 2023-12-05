@@ -12,6 +12,6 @@ define nagioscfg::servicegroup($sgalias = undef, $members = undef) {
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_servicegroups.cfg",
     content => template('nagioscfg/servicegroup.erb'),
     order   => '30',
-    notify  => Service[$nagioscfg::service],
+    notify  => $nagioscfg::target_to_notify,
   }
 }

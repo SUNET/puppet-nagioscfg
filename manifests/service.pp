@@ -33,6 +33,6 @@ define nagioscfg::service($action_url = undef,
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_services.cfg",
     content => template('nagioscfg/service.erb'),
     order   => '30',
-    notify  => Service[$nagioscfg::service],
+    notify  => $nagioscfg::target_to_notify,
   }
 }

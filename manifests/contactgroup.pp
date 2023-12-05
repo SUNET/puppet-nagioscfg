@@ -16,6 +16,6 @@ define nagioscfg::contactgroup($cgalias = undef, $ensure = 'present', $members =
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_contactgroups.cfg",
     content => template('nagioscfg/contactgroup.erb'),
     order   => '30',
-    notify  => Service[$nagioscfg::service],
+    notify  => $nagioscfg::target_to_notify,
   }
 }
