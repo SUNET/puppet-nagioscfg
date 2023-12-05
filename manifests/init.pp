@@ -24,6 +24,18 @@ class nagioscfg(
     ensure_resource('service',$service, { ensure => running })
   }
 
+  exec { 'systemd-naemon':
+    command     => 'systemctl reload sunet-naemon_monitor',
+    onlyif      => 'test -f /etc/system/systemd/sunet-naemon_monitor.service',
+    refreshonly => true
+  }
+
+  if ($service == 'sunet-naemon_monitor'){
+    $target_to_notify =  Exec['systemd-naemon']
+  } else {
+    $target_to_notify =  Service[$service]
+  }
+
   file { '/etc/nagios-plugins/config/check_ssh_4_hostname.cfg':
     ensure  => file,
     content => template('nagioscfg/check_ssh_4_hostname.cfg.erb')
@@ -44,7 +56,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_hostgroups.cfg",
     content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
-    notify  => Service[$service]
+    notify  => $target_to_notify
   }
   concat {"${cfgdir}/${config}_hosts.cfg":
     owner => root,
@@ -55,7 +67,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_hosts.cfg",
     content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
-    notify  => Service[$service]
+    notify  => $target_to_notify
   }
   concat {"${cfgdir}/${config}_servicegroups.cfg":
     owner => root,
@@ -66,7 +78,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_servicegroups.cfg",
     content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
-    notify  => Service[$service]
+    notify  => $target_to_notify
   }
   concat {"${cfgdir}/${config}_services.cfg":
     owner => root,
@@ -77,7 +89,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_services.cfg",
     content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
-    notify  => Service[$service]
+    notify  => $target_to_notify
   }
   concat {"${cfgdir}/${config}_contactgroups.cfg":
     owner => root,
@@ -88,7 +100,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_contactgroups.cfg",
     content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
-    notify  => Service[$service]
+    notify  => $target_to_notify
   }
   concat {"${cfgdir}/${config}_commands.cfg":
     owner => root,
@@ -99,7 +111,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_commands.cfg",
     content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
-    notify  => Service[$service]
+    notify  => $target_to_notify
   }
   concat {"${cfgdir}/${config}_contacts.cfg":
     owner => root,
@@ -110,7 +122,7 @@ class nagioscfg(
     target  => "${cfgdir}/${config}_contacts.cfg",
     content => '# Do not edit by hand - maintained by puppet',
     order   => '10',
-    notify  => Service[$service]
+    notify  => $target_to_notify
   }
 
   if has_key($hostgroups,'all') {
