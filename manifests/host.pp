@@ -34,6 +34,5 @@ define nagioscfg::host(
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_hosts.cfg",
     content => template('nagioscfg/host.erb'),
     order   => '30',
-    notify  => Service[$nagioscfg::service],
   }
 }

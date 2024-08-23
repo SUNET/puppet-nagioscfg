@@ -16,6 +16,5 @@ define nagioscfg::hostgroup($hgalias = undef, $members = undef) {
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_hostgroups.cfg",
     content => template('nagioscfg/hostgroup.erb'),
     order   => '30',
-    notify  => Service[$nagioscfg::service],
   }
 }
