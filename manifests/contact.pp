@@ -24,6 +24,5 @@ define nagioscfg::contact($ensure = 'present',
     target  => "${nagioscfg::cfgdir}/${nagioscfg::config}_contacts.cfg",
     content => template('nagioscfg/contact.erb'),
     order   => '30',
-    notify  => Service[$nagioscfg::service]
   }
 }
