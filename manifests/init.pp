@@ -119,9 +119,18 @@ class nagioscfg(
       unless $hostname in $exclude_hosts {
         notify {"generating ${hostname}": }
         if $custom_host_fields == undef {
-          nagioscfg::host {$hostname: single_ip => $single_ip, sort_alphabetically => $sort_alphabetically, default_host_group => $default_host_group}
+          nagioscfg::host { $hostname:
+            single_ip           => $single_ip,
+            sort_alphabetically => $sort_alphabetically,
+            default_host_group  => $default_host_group
+          }
         } elsif $custom_host_fields != undef {
-          nagioscfg::host {$hostname: single_ip => $single_ip, sort_alphabetically => $sort_alphabetically, default_host_group => $default_host_group, custom_host_fields => $custom_host_fields[$hostname] }
+          nagioscfg::host { $hostname:
+            single_ip           => $single_ip,
+            sort_alphabetically => $sort_alphabetically,
+            default_host_group  => $default_host_group,
+            custom_host_fields  => $custom_host_fields[$hostname]
+          }
         }
       }
     }
