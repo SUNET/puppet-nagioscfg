@@ -14,6 +14,7 @@ class nagioscfg(
   Optional[String] $default_host_group = undef,
   Optional[Hash] $custom_host_fields = undef,
   Hash $additional_entities = {},
+  Optional[String] $all_group = 'all',
 )
 {
   if $manage_package {
@@ -113,8 +114,8 @@ class nagioscfg(
     order   => '10',
   }
 
-  if has_key($hostgroups,'all') {
-    each($hostgroups['all']) |$hostname| {
+  if has_key($hostgroups, $all_group) {
+    each($hostgroups[$all_group]) |$hostname| {
       unless $hostname in $exclude_hosts {
         notify {"generating ${hostname}": }
         if $custom_host_fields == undef {
@@ -127,7 +128,7 @@ class nagioscfg(
   }
 
   each($hostgroups) |$hgn, $members| {
-    if $hgn != 'all' {
+    if !($hgn in [$all_group, 'all']) {
       $filtered_members = delete($members, $exclude_hosts)
       nagioscfg::hostgroup {$hgn: members => $filtered_members}
     }
