@@ -17,12 +17,23 @@ class nagioscfg(
   Optional[String] $all_group = 'all',
 )
 {
+  exec { "${name}_reload_naemon":
+    command     => '/usr/bin/systemctl reload sunet-naemon_monitor',
+    refreshonly => true,
+  }
+
   if $manage_package {
     ensure_resource('package','nagios3', { ensure => present })
     ensure_resource('package','nagios-nrpe-plugin', { ensure => present })
   }
   if $manage_service {
     ensure_resource('service',$service, { ensure => running })
+  }
+
+  if $service == 'sunet-naemon_monitor' {
+    $notify = Exec["${name}_reload_naemon"]
+  } else {
+    $notify = Service[$service]
   }
 
   file { '/etc/nagios-plugins/config/check_ssh_4_hostname.cfg':
@@ -40,7 +51,7 @@ class nagioscfg(
     owner  => root,
     group  => root,
     mode   => '0644',
-    notify => Service[$service],
+    notify => $notify,
   }
   concat::fragment {"${config}_hostgroups_header":
     target  => "${cfgdir}/${config}_hostgroups.cfg",
@@ -51,7 +62,7 @@ class nagioscfg(
     owner  => root,
     group  => root,
     mode   => '0644',
-    notify => Service[$service]
+    notify => $notify,
   }
   concat::fragment {"${config}_hosts_header":
     target  => "${cfgdir}/${config}_hosts.cfg",
@@ -62,7 +73,7 @@ class nagioscfg(
     owner  => root,
     group  => root,
     mode   => '0644',
-    notify => Service[$service],
+    notify => $notify,
   }
   concat::fragment {"${config}_servicegroups_header":
     target  => "${cfgdir}/${config}_servicegroups.cfg",
@@ -73,7 +84,7 @@ class nagioscfg(
     owner  => root,
     group  => root,
     mode   => '0644',
-    notify => Service[$service],
+    notify => $notify,
   }
   concat::fragment {"${config}_services_header":
     target  => "${cfgdir}/${config}_services.cfg",
@@ -84,7 +95,7 @@ class nagioscfg(
     owner  => root,
     group  => root,
     mode   => '0644',
-    notify => Service[$service],
+    notify => $notify,
   }
   concat::fragment {"${config}_contactgroups_header":
     target  => "${cfgdir}/${config}_contactgroups.cfg",
@@ -95,7 +106,7 @@ class nagioscfg(
     owner  => root,
     group  => root,
     mode   => '0644',
-    notify => Service[$service],
+    notify => $notify,
   }
   concat::fragment {"${config}_commands_header":
     target  => "${cfgdir}/${config}_commands.cfg",
@@ -106,7 +117,7 @@ class nagioscfg(
     owner  => root,
     group  => root,
     mode   => '0644',
-    notify => Service[$service],
+    notify => $notify,
   }
   concat::fragment {"${config}_contacts_header":
     target  => "${cfgdir}/${config}_contacts.cfg",
