@@ -125,7 +125,7 @@ class nagioscfg(
     order   => '10',
   }
 
-  if has_key($hostgroups, $all_group) {
+  if $all_group in $hostgroups {
     each($hostgroups[$all_group]) |$hostname| {
       unless $hostname in $exclude_hosts {
         notify {"generating ${hostname}": }
