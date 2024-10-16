@@ -4,7 +4,7 @@ define nagioscfg::contactgroup($cgalias = undef, $ensure = 'present', $members =
     undef   => $name,
     default => $cgalias
   }
-  $def_members = has_key($nagioscfg::contactgroups, $name) ? {
+  $def_members = if $name in $nagioscfg::contactgroups ? {
     true  => $nagioscfg::contactgroups[$name],
     false => undef,
   }
