@@ -4,7 +4,7 @@ define nagioscfg::hostgroup($hgalias = undef, $members = undef) {
     undef   => $name,
     default => $hgalias
   }
-  $def_members = (if $name in $nagioscfg::hostgroups) ? {
+  $def_members = $name in $nagioscfg::hostgroups ? {
     true  => $nagioscfg::hostgroups[$name],
     false => undef,
   }
