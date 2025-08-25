@@ -8,7 +8,6 @@ class nagioscfg::passive (
   String $encryption_method    = hiera('nsca_encryption_method', '14'),  # 14 is AES-128
   String $nagios_config_file   = '/etc/nagios3/nagios.cfg',
 ) {
-  require augeas
   ensure_resource('package', 'nsca-client', { ensure => present })
 
   $binary = '/usr/share/icinga/plugins/eventhandlers/distributed-monitoring/send_nsca_host_or_service_check_result'
