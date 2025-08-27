@@ -10,7 +10,7 @@ define nagioscfg::host(
   Optional[Hash] $ip_override_map = undef,
 ) {
 
-  # Determine static IP list is provided, else fall back to dnsLookup
+  # Determine if a static IP list is provided, else fall back to dnsLookup like before
   if $ip_override_map and $ip_override_map[$name] {
     $unsorted_temp_ip_list = $ip_override_map[$name]
   } else {
