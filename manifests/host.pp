@@ -16,7 +16,6 @@ define nagioscfg::host(
   } else {
     $unsorted_temp_ip_list = dnsLookup($name)
   }
-  $unsorted_temp_ip_list = dnsLookup($name)
   if $sort_alphabetically {
     $temp_ip_list = sort($unsorted_temp_ip_list)
   } else {
