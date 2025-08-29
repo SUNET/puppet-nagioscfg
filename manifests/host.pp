@@ -7,12 +7,12 @@ define nagioscfg::host(
   $sort_alphabetically                 = false,
   Optional[String] $default_host_group = undef,
   Optional[Hash] $custom_host_fields = undef,
-  Optional[Hash] $ip_override_map = undef,
+  Optional[Array] $ip_override = undef,
 ) {
 
   # Determine if a static IP list is provided, else fall back to dnsLookup like before
-  if $ip_override_map and $ip_override_map[$name] {
-    $unsorted_temp_ip_list = $ip_override_map[$name]
+  if $ip_override {
+    $unsorted_temp_ip_list = $ip_override
   } else {
     $unsorted_temp_ip_list = dnsLookup($name)
   }
