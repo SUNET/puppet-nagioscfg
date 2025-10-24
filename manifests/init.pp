@@ -157,13 +157,14 @@ class nagioscfg(
   }
 
   each($regexp_based_groups) |$name, $pattern| {
-    if !($name in [$all_group, 'all']) {
+    $prefixed_name = "regexp__${name}"
+    if !($prefix_name in [$all_group, 'all']) {
       $all = delete($facts['configured_hosts_in_cosmos']['all'], $exclude_hosts)
       $r = Regexp($pattern)
       $regexped = filter($all) | $host | { $host =~ $r }
-      nagioscfg::hostgroup {$name: members => $regexped}
+      nagioscfg::hostgroup {$prefixed_name: members => $regexped}
       $neg_matching = filter($all) | $host | { $host !~ $r }
-      nagioscfg::hostgroup {"${name}__neg": members => $neg_matching}
+      nagioscfg::hostgroup {"${prefixed_name}__neg": members => $neg_matching}
 
     }
   }
