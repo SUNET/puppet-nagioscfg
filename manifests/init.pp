@@ -158,7 +158,7 @@ class nagioscfg(
 
   each($regexp_based_groups) |$name, $pattern| {
     $prefixed_name = "regexp__${name}"
-    if !($prefix_name in [$all_group, 'all']) {
+    if !($prefixed_name in [$all_group, 'all']) {
       $all = delete($facts['configured_hosts_in_cosmos']['all'], $exclude_hosts)
       $r = Regexp($pattern)
       $regexped = filter($all) | $host | { $host =~ $r }
