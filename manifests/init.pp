@@ -15,6 +15,8 @@ class nagioscfg(
   Optional[Hash] $custom_host_fields = undef,
   Hash $additional_entities = {},
   Optional[String] $all_group = 'all',
+  Hash $regexp_based_groups = {},
+
 )
 {
   exec { "${name}_reload_naemon":
@@ -151,6 +153,19 @@ class nagioscfg(
     if !($hgn in [$all_group, 'all']) {
       $filtered_members = delete($members, $exclude_hosts)
       nagioscfg::hostgroup {$hgn: members => $filtered_members}
+    }
+  }
+
+  each($regexp_based_groups) |$name, $pattern| {
+    $prefixed_name = "regexp__${name}"
+    if !($prefixed_name in [$all_group, 'all']) {
+      $all = delete($facts['configured_hosts_in_cosmos']['all'], $exclude_hosts)
+      $r = Regexp($pattern)
+      $regexped = filter($all) | $host | { $host =~ $r }
+      nagioscfg::hostgroup {$prefixed_name: members => $regexped}
+      $neg_matching = filter($all) | $host | { $host !~ $r }
+      nagioscfg::hostgroup {"${prefixed_name}__neg": members => $neg_matching}
+
     }
   }
 
