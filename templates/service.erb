@@ -18,5 +18,7 @@ define service {
 <% if @notification_interval %>  notification_interval <%= @notification_interval %><% end %>
 <% if @notification_options %>  notification_options <%= @notification_options %><% end %>
 <% if @notifications_enabled %>  notifications_enabled <%= @notifications_enabled %><% end %>
+<% if @event_handler_enabled %>  event_handler_enabled <%= @event_handler_enabled %><% end %>
+<% if @obsess %>  obsess <%= @obsess %><% end %>
   register <%= @register %>
 }
