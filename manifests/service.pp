@@ -18,6 +18,7 @@ define nagioscfg::service($action_url = undef,
                           $notifications_enabled = undef,
                           $event_handler_enabled = undef,
                           $obsess = undef,
+                          $notes_url = undef,
 ) {
   $hostgroup_list = $hostgroup_name ? {
     undef   => undef,

@@ -3,5 +3,6 @@
 define servicegroup {
   servicegroup_name <%= @name %>
   alias <%= @servicegroup_alias %>
+  <% if @notes_url %>  notes_url <%= @notes_url %><% end %>
 <% if @servicegroup_members %>  members <%= @servicegroup_members %><% end %>
 }
