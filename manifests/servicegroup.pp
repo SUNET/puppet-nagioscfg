@@ -1,5 +1,9 @@
 # Create service groups
-define nagioscfg::servicegroup($sgalias = undef, $members = undef) {
+define nagioscfg::servicegroup(
+  $sgalias = undef,
+  $members = undef,
+  Optional[String] $notes_url = undef
+) {
   $servicegroup_alias = $sgalias ? {
     undef   => $name,
     default => $sgalias

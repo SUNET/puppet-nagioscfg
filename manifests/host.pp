@@ -6,6 +6,7 @@ define nagioscfg::host(
   $action_url                          = undef,
   $sort_alphabetically                 = false,
   Optional[String] $default_host_group = undef,
+  Optional[String] $notes_url          = undef,
   Optional[Hash] $custom_host_fields = undef,
   Optional[Array] $ip_override = undef,
 ) {

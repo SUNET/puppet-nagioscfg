@@ -2,6 +2,7 @@
 # <%= @name %>
 define hostgroup {
   hostgroup_name <%= @name %>
+<% if @notes_url %>  notes_url <%= @notes_url %><% end %>
   alias <%= @hostgroup_alias %>
 <% if @hostgroup_members != '' %>  members <%= @hostgroup_members %><% end %>
 }

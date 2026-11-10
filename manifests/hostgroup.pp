@@ -1,5 +1,9 @@
 # Create host groups
-define nagioscfg::hostgroup($hgalias = undef, $members = undef) {
+define nagioscfg::hostgroup(
+  $hgalias = undef,
+  $members = undef,
+  Optional[String] $notes_url = undef
+) {
   $hostgroup_alias = $hgalias ? {
     undef   => $name,
     default => $hgalias
